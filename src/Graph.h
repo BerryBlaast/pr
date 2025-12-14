@@ -4,44 +4,50 @@
 #include <vector>
 #include <unordered_map>
 #include <iostream>
+ 
+ using namespace std;
 
 struct Node {
-    std::string id;
-    std::string type;
-    std::string name;
-    std::unordered_map<std::string, std::string> properties;
+    string id;
+    string type;
+    string name;
+    unordered_map<string, string> properties;
 };
 
 struct Edge {
-    std::string sourceId;
-    std::string targetId;
-    std::string type;
+    string sourceId;
+    string targetId;
+    string type;
 };
 
 class Graph {
-public:
-    void addNode(const std::string& id, const std::string& type, const std::string& name, const std::unordered_map<std::string, std::string>& properties = {});
-    void addEdge(const std::string& sourceId, const std::string& targetId, const std::string& type);
-    
-    // Returns a list of strings describing the path, or empty if no path found
-    std::vector<std::string> shortestPath(const std::string& sourceName, const std::string& targetName);
-
-    // Returns a list of strings describing reachable nodes (DFS)
-    std::vector<std::string> getReachableNodes(const std::string& sourceName);
-
-    // Returns a list of strings describing nodes that can control the target (Reverse BFS/DFS)
-    std::vector<std::string> getControllers(const std::string& targetName);
-
-    // Returns a list of edges forming the shortest path to a high-value target
-    std::vector<Edge> findPathToHighValue(const std::string& sourceName);
-
-    const std::unordered_map<std::string, Node>& getNodes() const { return nodes; }
-    const std::unordered_map<std::string, std::vector<Edge>>& getReverseAdjacencyList() const { return reverseAdjacencyList; }
 
 private:
-    std::unordered_map<std::string, Node> nodes;
-    std::unordered_map<std::string, std::vector<Edge>> adjacencyList;
-    std::unordered_map<std::string, std::vector<Edge>> reverseAdjacencyList;
+    unordered_map<string, Node> nodes;
+    unordered_map<string, vector<Edge>> adjacencyList;
+    unordered_map<string, vector<Edge>> reverseAdjacencyList;
     
-    std::string findNodeIdByName(const std::string& name);
+    string findNodeIdByName(const string& name);
+
+public:
+    void addNode(const string& id, const string& type, const string& name, const unordered_map<string, string>& properties = {});
+
+    void addEdge(const string& sourceId, const string& targetId, const string& type);
+    
+    // Returns a list of strings describing the path, or empty if no path found
+    vector<string> shortestPath(const string& sourceName, const string& targetName);
+
+    // Returns a list of strings describing reachable nodes (DFS)
+    vector<string> getReachableNodes(const string& sourceName);
+
+    // Returns a list of strings describing nodes that can control the target (Reverse BFS/DFS)
+    vector<string> getControllers(const string& targetName);
+
+    // Returns a list of edges forming the shortest path to a high-value target
+    vector<Edge> findPathToHighValue(const string& sourceName);
+
+    const unordered_map<string, Node>& getNodes() const { return nodes; }
+    const unordered_map<string, vector<Edge>>& getReverseAdjacencyList() const { return reverseAdjacencyList; }
+
+
 };
